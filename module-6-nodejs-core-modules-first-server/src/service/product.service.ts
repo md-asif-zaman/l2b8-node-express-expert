@@ -1,8 +1,12 @@
+import { readFileSync } from "fs";
 import path from "path";
 
 const productService = () => {
   const filePath = path.join(process.cwd(), "./src/database/db.json");
-  console.log(filePath);
+
+  const result = readFileSync(filePath, "utf-8");
+
+  return JSON.parse(result);
 };
 
 export default productService;
