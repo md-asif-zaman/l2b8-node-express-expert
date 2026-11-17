@@ -17,7 +17,7 @@ const pool = new Pool({
 const initDB = async () => {
   try {
     await pool.query(`
-      CREATE TABLE users (
+      CREATE TABLE IF NOT EXISTS users  (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
