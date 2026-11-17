@@ -1,8 +1,9 @@
 import express, { Application, Request, Response } from "express";
 import { Pool } from "pg";
 import "dotenv/config";
+import config from "./config";
 
-const port = 5000;
+const port = config.port;
 const app: Application = express();
 
 app.use(express.json());
@@ -12,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //* Connect with NeonDB
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: config.connection_string,
 });
 
 //* Make User Table
