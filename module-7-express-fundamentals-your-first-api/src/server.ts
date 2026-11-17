@@ -1,6 +1,5 @@
 import express, { Application, Request, Response } from "express";
 import { Pool } from "pg";
-import "dotenv/config";
 import config from "./config";
 
 const port = config.port;
