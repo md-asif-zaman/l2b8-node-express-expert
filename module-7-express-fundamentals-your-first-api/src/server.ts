@@ -70,6 +70,47 @@ app.post("/api/v1/users", async (req: Request, res: Response) => {
   }
 });
 
+//* Get All Users
+app.get("/api/v1/users", async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(`SELECT * from users`);
+
+    res.status(201).json({
+      success: true,
+      message: "User Retrieved Successfully",
+      data: result.rows,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error,
+    });
+  }
+});
+
+//* Get Single User
+app.get("/api/v1/users/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    const result = await pool.query(`SELECT * from users WHERE id = $1`, [id]);
+
+    res.status(201).json({
+      success: true,
+      message: "User Retrieved Successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error,
+    });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Express server is running on port ${port}`);
 });
