@@ -136,6 +136,7 @@ app.put("/api/v1/users/:id", async (req: Request, res: Response) => {
       updated_at = NOW()
       WHERE id = $5 RETURNING *
       `,
+      // if name do not come from user then set name == null. So COALESCE do not accept new name and remain old name in database
       [name ?? null, password ?? null, age ?? null, is_Active ?? null, id],
     );
 
