@@ -22,7 +22,7 @@ const getSingleUserFromDB = async (id: string) => {
   return result;
 };
 
-const updateUserToDB = async (id: string, payload: IUser) => {
+const updateUserToDB = async (id: string, payload: Partial<IUser>) => {
   const { name, password, age, is_Active } = payload;
 
   const result = await pool.query(
