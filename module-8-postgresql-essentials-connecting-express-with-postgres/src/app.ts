@@ -6,6 +6,7 @@ import express, {
 import { initDB, pool } from "./db";
 import { userRouter } from "./modules/users/users.route";
 import { profileRouter } from "./modules/profile/profile.route";
+import { authRoute } from "./modules/auth/auth.route";
 const app: Application = express();
 
 app.use(express.json());
@@ -17,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/users", userRouter);
 //Profile Router
 app.use("/api/v1/profile", profileRouter);
+// Authentication Route
+app.use("/api/v1/auth", authRoute);
 
 // Root Route
 app.get("/", (req: Request, res: Response) => {
