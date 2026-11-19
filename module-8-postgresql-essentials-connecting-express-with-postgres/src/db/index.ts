@@ -6,7 +6,7 @@ export const pool = new Pool({
   connectionString: config.connection_string,
 });
 
-//* Make User Table
+//* Create User Table
 export const initDB = async () => {
   try {
     await pool.query(`
@@ -22,6 +22,7 @@ export const initDB = async () => {
       );
       `);
 
+    //* Create User Table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS profile (
           id SERIAL PRIMARY KEY,
