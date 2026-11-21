@@ -50,7 +50,7 @@ const getSingleUser = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "User Retrieved Successfully",
       data: result.rows[0],
@@ -77,9 +77,9 @@ const updateUser = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
-      message: "User Retrieved Successfully",
+      message: "User updated Successfully",
       data: result.rows[0],
     });
   } catch (error: any) {
@@ -104,7 +104,7 @@ const deleteUser = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "User deleted successfully",
       data: result.rows[0],

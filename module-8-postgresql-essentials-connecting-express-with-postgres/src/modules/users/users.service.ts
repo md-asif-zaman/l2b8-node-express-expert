@@ -9,7 +9,7 @@ const createUserIntDB = async (payload: IUser) => {
   const hashPassword = await bcrypt.hash(password, 10);
 
   const result = await pool.query(
-    ` INSERT INTO users(name, email, password, age)  VALUES($1, $2, $3, $4) RETURNING *`,
+    ` INSERT INTO users(name, email, password, age) VALUES($1, $2, $3, $4) RETURNING *`,
     [name, email, hashPassword, age],
   );
 
@@ -42,7 +42,7 @@ const updateUserToDB = async (id: string, payload: Partial<IUser>) => {
       is_Active = COALESCE($4, is_Active),
       updated_at = NOW()
       WHERE id = $5 RETURNING *
-      `,
+    `,
     // if name do not come from user then set name == null. So COALESCE do not accept new name and remain old name in database
     [name ?? null, password ?? null, age ?? null, is_Active ?? null, id],
   );

@@ -12,9 +12,10 @@ router.get("/", userController.getAllUsers);
 
 //* Get Single User
 router.get("/:id", userController.getSingleUser);
-export const userRouter = router;
 
 //* Update a User
 router.put("/:id", userController.updateUser);
 
 router.delete("/:id", userController.deleteUser);
+
+export const userRouter = router;
