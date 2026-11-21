@@ -41,12 +41,37 @@ const getSingleUserFromDB = async (id: string) => {
     `,
     [id],
   );
+
+  if (result.rowCount == 0) {
+    throw Error("User not found.");
+  }
   delete result.rows[0].password;
   return result.rows[0];
+};
+
+const deleteUserFromDB = async (id: string) => {
+  const userExistance = await pool.query(
+    `
+    SELECT * FROM users_practice WHERE id = $1
+    `,
+    [id],
+  );
+
+  if (userExistance.rowCount == 0) {
+    throw Error("User not found.");
+  }
+
+  await pool.query(
+    `
+    DELETE FROM users_practice WHERE id = $1
+    `,
+    [id],
+  );
 };
 
 export const userServices = {
   createUserIntoDB,
   getUsersFromDB,
   getSingleUserFromDB,
+  deleteUserFromDB,
 };
