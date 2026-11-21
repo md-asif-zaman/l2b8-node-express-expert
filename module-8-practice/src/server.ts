@@ -1,10 +1,10 @@
 import app from "./app";
-import { config } from "./config";
+import config from "./config";
 import { initDB } from "./db";
 
 const main = async () => {
   try {
-    await initDB();
+    initDB();
     app.listen(config.port, () => {
       console.log(`App is listening on port ${config.port}`);
     });
