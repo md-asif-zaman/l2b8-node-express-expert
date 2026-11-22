@@ -8,6 +8,7 @@ import { userRouter } from "./modules/users/users.route";
 import { profileRouter } from "./modules/profile/profile.route";
 import { authRoute } from "./modules/auth/auth.route";
 import fs from "fs";
+import { logger } from "./middleware/logger";
 
 const app: Application = express();
 
@@ -17,11 +18,7 @@ app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
 // Logger Middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const log = `\n Method: ${req.method} || URL: ${req.url} || Time: ${Date.now()}\n`;
-  fs.appendFile("logger.txt", log, (err) => console.log(err));
-  next();
-});
+app.use(logger);
 
 // User Router
 app.use("/api/v1/users", userRouter);
