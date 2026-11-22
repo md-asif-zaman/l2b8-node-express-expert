@@ -4,6 +4,7 @@ import express, {
   type Response,
 } from "express";
 import { userRouter } from "./modules/users/users.route";
+import { profileRouter } from "./modules/profile/profile.route";
 
 const app: Application = express();
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/profile", profileRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({

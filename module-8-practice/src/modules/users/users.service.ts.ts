@@ -49,6 +49,26 @@ const getSingleUserFromDB = async (id: string) => {
   return result.rows[0];
 };
 
+const updateUserFromDB = async (id: string, payload: Partial<IUser>) => {
+  const { name, password, age, is_active } = payload;
+
+  const result = await pool.query(
+    `
+    UPDATE users_practice 
+    SET
+    name = COALESCE($1, name),
+    password = COALESCE($2, password),
+    age = COALESCE($3, age),
+    is_active = COALESCE($4, is_active),
+    updated_at = NOW()
+    WHERE id = $5 RETURNING *
+    `,
+    [name ?? null, password ?? null, age ?? null, is_active ?? null, id],
+  );
+
+  return result;
+};
+
 const deleteUserFromDB = async (id: string) => {
   const userExistance = await pool.query(
     `
@@ -74,4 +94,5 @@ export const userServices = {
   getUsersFromDB,
   getSingleUserFromDB,
   deleteUserFromDB,
+  updateUserFromDB,
 };
