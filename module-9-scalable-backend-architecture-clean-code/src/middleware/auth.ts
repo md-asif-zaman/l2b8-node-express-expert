@@ -36,6 +36,8 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       message: "User is not active.",
     });
   }
+  // inject decoded user inside req
+  req.user = decode;
   next();
 };
 
