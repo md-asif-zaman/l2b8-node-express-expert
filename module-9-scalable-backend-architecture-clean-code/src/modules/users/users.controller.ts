@@ -21,10 +21,9 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 const getAllUsers = async (req: Request, res: Response) => {
-  console.log(req.user);
   try {
     const result = await userService.getAllUsersFromDB();
-
+    console.log(req.user);
     res.status(201).json({
       success: true,
       message: "Users Retrieved Successfully",
