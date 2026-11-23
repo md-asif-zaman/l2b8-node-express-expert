@@ -11,8 +11,14 @@ import { authRoute } from "./modules/auth/auth.route";
 import fs from "fs";
 import { logger } from "./middleware/logger";
 import globalErrorHandler from "./middleware/globarErrorHandler";
+import cookieParser from "cookie-parser";
 
 const app: Application = express();
+
+app.use(express.json());
+app.use(express.text());
+// middleware for form data & nested data
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
@@ -20,10 +26,8 @@ app.use(
     optionsSuccessStatus: 200,
   }),
 );
-app.use(express.json());
-app.use(express.text());
-// middleware for form data & nested data
-app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 // Logger Middleware
 app.use(logger);
