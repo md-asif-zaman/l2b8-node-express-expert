@@ -4,14 +4,22 @@ import express, {
   type Request,
   type Response,
 } from "express";
+import cors from "cors";
 import { userRouter } from "./modules/users/users.route";
 import { profileRouter } from "./modules/profile/profile.route";
 import { authRoute } from "./modules/auth/auth.route";
 import fs from "fs";
 import { logger } from "./middleware/logger";
+import globalErrorHandler from "./middleware/globarErrorHandler";
 
 const app: Application = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5000",
+    optionsSuccessStatus: 200,
+  }),
+);
 app.use(express.json());
 app.use(express.text());
 // middleware for form data & nested data
@@ -35,5 +43,7 @@ app.get("/", (req: Request, res: Response) => {
     author: "Ph",
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;

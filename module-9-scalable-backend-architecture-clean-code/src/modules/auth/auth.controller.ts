@@ -5,6 +5,16 @@ const loginUser = async (req: Request, res: Response) => {
   try {
     const result = await authService.loginUserIntoDB(req.body);
 
+    const { refreshToken } = result;
+    res.cookie("refreshToken", refreshToken, {
+      secure: false, // http --> false, https --> true
+      httpOnly: true, //Prevent XSS Attack
+      sameSite: "lax", // "node", "strict", "lax" --> CSRF
+      // maxAge,
+      path: "/",
+      domain: "localhost",
+    });
+
     res.status(200).json({
       success: true,
       message: "User logged in successfully.",
