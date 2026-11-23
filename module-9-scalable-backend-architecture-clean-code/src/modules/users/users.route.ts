@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userController } from "./users.controller";
 import auth from "../../middleware/auth";
+import { USER_ROLE } from "../../types";
 
 const router = Router();
 // /api/v1/users
@@ -9,13 +10,25 @@ const router = Router();
 router.post("/", userController.createUser);
 
 //* Get All Users
-router.get("/", auth("admin", "agent"), userController.getAllUsers);
+router.get(
+  "/",
+  auth(USER_ROLE.admin, USER_ROLE.agent),
+  userController.getAllUsers,
+);
 
 //* Get Single User
-router.get("/:id", userController.getSingleUser);
+router.get(
+  "/:id",
+  auth(USER_ROLE.admin, USER_ROLE.agent, USER_ROLE.user),
+  userController.getSingleUser,
+);
 
 //* Update a User
-router.put("/:id", userController.updateUser);
+router.put(
+  "/:id",
+  auth(USER_ROLE.admin, USER_ROLE.user),
+  userController.updateUser,
+);
 
 router.delete("/:id", userController.deleteUser);
 
