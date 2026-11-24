@@ -8,6 +8,7 @@ const loginUser = async (req: Request, res: Response) => {
 
     const { refreshToken } = result;
     res.cookie("refreshToken", refreshToken, {
+      // name, value
       secure: false, // http --> false, https --> true
       httpOnly: true, //Prevent XSS Attack
       sameSite: "lax", // "node", "strict", "lax" --> CSRF

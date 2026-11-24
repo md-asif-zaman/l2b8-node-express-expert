@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { userServices } from "./users.service.ts";
+import { sendResponse } from "../../utils/sendResponse.js";
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -21,7 +22,8 @@ const createUser = async (req: Request, res: Response) => {
 const getUsers = async (req: Request, res: Response) => {
   try {
     const result = await userServices.getUsersFromDB();
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 201,
       success: true,
       message: "Users retrieved successfully",
       data: result,
