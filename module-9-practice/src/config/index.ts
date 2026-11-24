@@ -8,6 +8,7 @@ const config = {
   port: process.env.PORT,
   bcrypt_salt: process.env.BCRYPT_SALT,
   jwt_secret: process.env.JWT_SECRET,
+  jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
 };
 
 export default config;

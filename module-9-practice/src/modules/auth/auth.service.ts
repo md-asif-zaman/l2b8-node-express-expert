@@ -36,13 +36,22 @@ const loginUser = async (payload: IAuth) => {
     id: user.rows[0].id,
     name: user.rows[0].name,
     email: user.rows[0].email,
+    role: user.rows[0].role,
   };
 
-  const accessToken = await jwt.sign(jwtPayload, config.jwt_secret as string, {
-    expiresIn: "1d",
+  const accessToken = jwt.sign(jwtPayload, config.jwt_secret as string, {
+    expiresIn: "1h",
   });
 
-  return accessToken;
+  const refreshToken = jwt.sign(
+    jwtPayload,
+    config.jwt_refresh_secret as string,
+    {
+      expiresIn: "10d",
+    },
+  );
+
+  return { accessToken, refreshToken };
 };
 
 export const authService = {
